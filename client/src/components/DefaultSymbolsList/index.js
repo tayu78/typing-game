@@ -1,1 +1,1 @@
-export { default as DefaultSymbolsList } from './DefaultSymbolsList';
+export { default as DefaultSymbolsList } from "./DefaultSymbolsList";

@@ -5,16 +5,29 @@ import (
 	"time"
 	"math/rand"
 	"github.com/aws/aws-lambda-go/lambda"
+	"github.com/aws/aws-lambda-go/events"
 )
-
-type Response struct {
-	Data string `json:"data"`
-}
-func Handler() (Response, error){
+// type Response struct {
+// 	Data string `json:"data"`
+// }
+func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error){
 	symbol := returnSymbol()
-	return Response {
-		Data:fmt.Sprintf("%s", symbol),
-	}, nil
+
+	headers := map[string]string{
+		"Content-Type":                    "application/json",
+		"Access-Control-Allow-Origin":     request.Headers["origin"], 
+		"Access-Control-Allow-Methods":    "OPTIONS,POST,GET",
+		"Access-Control-Allow-Headers":    "Origin,Authorization,Accept,X-Requested-With",
+		"Access-Control-Allow-Credential": "true",
+}
+	// return Response {
+	// 	Data:fmt.Sprintf("%s", symbol),
+	// }, nil
+	return events.APIGatewayProxyResponse{
+		Headers:    headers,
+		Body:     fmt.Sprintf("%s", symbol),
+		StatusCode: 200,
+}, nil
 
 }
 

@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/react';
-import Board from './Board';
+import { render, screen } from "@testing-library/react";
+import Board from "./Board";
 
-test('render Board', () => {
+test("render Board", () => {
   render(<Board />);
-})
+});

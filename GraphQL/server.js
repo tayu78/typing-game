@@ -2,7 +2,8 @@ var express = require('express');
 var { graphqlHTTP } = require('express-graphql');
 var { buildSchema } = require('graphql');
 var axios = require('axios');
-const { response } = require('express');
+const cors = require('cors')
+// const { response } = require('express');
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
@@ -16,16 +17,16 @@ var root = {
   symbol: async () => {
     let symbol;
     await axios
-    .get(" https://em7p0wkwy2.execute-api.us-east-2.amazonaws.com/default/typing")             //リクエストを飛ばすpath
+    .get(" https://rywvls44b9.execute-api.us-east-2.amazonaws.com/default/TypingAPI")             //リクエストを飛ばすpath
       .then(response => {
-        symbol = response.data.data
+        symbol = response.data
+        console.log(response)
         console.log(response.data)
-        console.log(response.data.data)
-        console.log(typeof(response.data.data))
+        console.log(typeof(response.data))
     })
     .catch(() => {
       return "error"
-    });                 
+    });                 0
    return symbol 
   },
 };
@@ -33,6 +34,7 @@ var root = {
 
 
 var app = express();
+app.use(cors())
 app.use('/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,
