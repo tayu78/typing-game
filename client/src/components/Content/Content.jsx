@@ -3,16 +3,11 @@ import styled from "styled-components";
 import { Symbol } from "../Symbol";
 import { Results } from "../Results";
 import { Button } from "../Button";
-// import { DefaultSymbolsList } from "../DefaultSymbolsList";
 
 function Content() {
   const [isSpaceKeyDowned, setIsSpaceKeyDowned] = useState(false); //タイトル画面でスペースキーが押されたかどうか
-  // const [symbols, setSymbols] = useState(DefaultSymbolsList); //記号のリスト
   const [restSymbolNumber, setRestSymbolNumber] = useState(10); //残りの問題数
-  // const [currentSymbol, setCurrentSymbol] = useState(
-  //   symbols[Math.floor(Math.random() * symbols.length)][0]
-  // ); // 画面に表示する記号
-  const [currentSymbol, setCurrentSymbol] = useState("");
+  const [currentSymbol, setCurrentSymbol] = useState(""); //表示する記号
   const [incorrectNumber, setIncorrectNumber] = useState(0); //間違えてタイピングした数
   const [elapssedTime, setElapssedTime] = useState(0); //経過時間
   const [startTime, setStartTime] = useState(0); //開始時間
@@ -25,15 +20,10 @@ function Content() {
         e.preventDefault();
         setIsSpaceKeyDowned(true);
         setStartTime(Date.now());
-        // console.log(`elapssedTime=${elapssedTime}`)
       } else if (KeyName === currentSymbol) {
         //ユーザーが正しい記号を入力したら残りの問題数の更新、次に表示する記号の更新、記号リストを表示された記号は削除して更新
         await getSymbol();
         setRestSymbolNumber(restSymbolNumber - 1);
-        // setCurrentSymbol(
-        //   symbols.splice(Math.floor(Math.random() * symbols.length), 1)[0]
-        // );
-        // setSymbols(symbols);
       } else {
         //ゲームプレイ画面かどうかの確認をし、プレイ画面で間違った記号が押されたら、innCorrectNumberを更新
         isSpaceKeyDowned && setIncorrectNumber(incorrectNumber + 1);
@@ -64,7 +54,6 @@ function Content() {
   const handleClick = (e) => {
     setIsSpaceKeyDowned(false);
     setRestSymbolNumber(10);
-    // setSymbols(DefaultSymbolsList);
     setIncorrectNumber(0);
   };
 

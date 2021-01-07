@@ -7,9 +7,7 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-lambda-go/events"
 )
-// type Response struct {
-// 	Data string `json:"data"`
-// }
+
 func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error){
 	symbol := returnSymbol()
 
@@ -20,9 +18,7 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 		"Access-Control-Allow-Headers":    "Origin,Authorization,Accept,X-Requested-With",
 		"Access-Control-Allow-Credential": "true",
 }
-	// return Response {
-	// 	Data:fmt.Sprintf("%s", symbol),
-	// }, nil
+
 	return events.APIGatewayProxyResponse{
 		Headers:    headers,
 		Body:     fmt.Sprintf("%s", symbol),
