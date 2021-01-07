@@ -1,5 +1,5 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { act, fireEvent, render, screen } from "@testing-library/react";
+// import userEvent from "@testing-library/user-event";
 import Content from "./Content";
 
 describe("Content", () => {
@@ -27,20 +27,27 @@ describe("Content", () => {
     fireEvent.keyPress(document, {
       key: screen.getByTestId("symbol").textContent,
     });
-    screen.getByText("問題数:9");
+    setTimeout(() => {
+      screen.getByText("問題数:9");
+    }, 3000);
   });
 
   test("restSymbolNumber = 0 and then display results, user press wrong key and then incorrecutNumber change", () => {
     render(<Content />);
     fireEvent.keyPress(document, { key: " " }); //game start
     fireEvent.keyPress(document, { key: "a" }); // press wrong key
+    setInterval(console.log("start"), 3000);
     for (let i = 0; i < 10; i++) {
-      fireEvent.keyPress(document, {
-        key: screen.getByTestId("symbol").textContent,
-      });
+      setTimeout(() => {
+        fireEvent.keyPress(document, {
+          key: screen.getByTestId("symbol").textContent,
+        });
+      }, 3000);
     }
-    screen.getByText("結果");
-    screen.getByText("1");
-    screen.debug();
+    setTimeout(() => {
+      screen.getByText("結果");
+      screen.getByText("1");
+      screen.debug();
+    }, 3000);
   });
 });

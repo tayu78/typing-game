@@ -3,6 +3,11 @@ var { graphqlHTTP } = require('express-graphql');
 var { buildSchema } = require('graphql');
 var axios = require('axios');
 const cors = require('cors')
+const expressPlayground = require("graphql-playground-middleware-express").default;
+const functions = require("firebase-functions");
+const admin = require('firebase-admin');
+admin.initializeApp();
+
 
 
 // Construct a schema, using GraphQL schema language
@@ -40,5 +45,9 @@ app.use('/graphql', graphqlHTTP({
   rootValue: root,
   graphiql: true,
 }));
-app.listen(4000);
-console.log('Running a GraphQL API server at http://localhost:4000/graphql');
+app.get("/playground", expressPlayground({ endpoint: "/graphql" }));
+const api = functions.https.onRequest(app);
+module.exports = { api };
+// const port = 80;
+// app.listen(80);
+// console.log('Running a GraphQL API server at http://localhost:4000/graphql');
