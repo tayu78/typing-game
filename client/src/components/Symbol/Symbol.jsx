@@ -3,7 +3,9 @@ import styled from "styled-components";
 
 function Symbol(props) {
   return (
-    <DisplaySymbol data-testid="symbol">{props.currentSymbol}</DisplaySymbol>
+    <DisplaySymbol data-testid="symbol" id="symbol">
+      {props.currentSymbol}
+    </DisplaySymbol>
   );
 }
 
