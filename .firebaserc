@@ -1,17 +1,5 @@
 {
   "projects": {
     "default": "yuya78-api"
-  },
-  "targets": {
-    "yuya78-api": {
-      "hosting": {
-        "app": [
-          "yuya78-api"
-        ],
-        "api": [
-          "typing-data-api"
-        ]
-      }
-    }
   }
 }

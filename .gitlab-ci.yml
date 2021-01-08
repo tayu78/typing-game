@@ -1,4 +1,5 @@
 image: node:14.15.1
+
 cache:
   key: cache_yarn
   paths:
@@ -7,7 +8,16 @@ cache:
 stages:
   - install
   - build
+  - test
   - deploy
+
+install_functions:
+  stage: install
+  script:
+    - cd ./functions && yarn install --cache-folder ../.cache_yarn
+  artifacts:
+    paths:
+      - functions/node_modules
 
 install_client:
   stage: install
@@ -27,10 +37,18 @@ build_client:
     paths:
       - client/build
 
+test_client:
+  stage: test
+  script:
+    - cd ./client && yarn test
+  dependencies:
+    - install_client
+
 deploy_all_staging:
   stage: deploy
   script:
     - yarn global add firebase-tools --cache-folder ../.cache_yarn
-    - firebase deploy --only hosting --token "$FIREBASE_TOKEN"
+    - firebase deploy --token "$FIREBASE_DEPLOY_KEY"
   dependencies:
+    - install_functions
     - build_client
