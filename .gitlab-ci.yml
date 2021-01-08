@@ -49,7 +49,7 @@ test_cypress:
   stage: test
   script:
     - cd ./client
-    - yarn install --cache-folder ../.cache_yarn
+    - yarn install
     - yarn runHeadless
   dependencies:
     - install_client
