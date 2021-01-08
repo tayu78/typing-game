@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { Symbol } from "../Symbol";
 import { Results } from "../Results";
-import { Button } from "../Button";
+import { Button } from "../../components/Button";
 
 function Content() {
   const [isSpaceKeyDowned, setIsSpaceKeyDowned] = useState(false); //タイトル画面でスペースキーが押されたかどうか
