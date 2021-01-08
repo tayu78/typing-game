@@ -49,8 +49,8 @@ test_cypress:
   stage: test
   script:
     - cd ./client
-    - npm install
-    - npm run runHeadless
+    - yarn install --cache-folder ../.cache_yarn
+    - yarn runHeadless
   dependencies:
     - install_client
 
