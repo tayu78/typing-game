@@ -42,5 +42,4 @@ deploy_all_staging:
     - yarn global add firebase-tools --cache-folder ../.cache_yarn
     - firebase deploy --token "$FIREBASE_DEPLOY_KEY"
   dependencies:
-    - install_functions
     - build_client
