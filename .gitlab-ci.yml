@@ -11,14 +11,6 @@ stages:
   - test
   - deploy
 
-install_functions:
-  stage: install
-  script:
-    - cd ./functions && yarn install --cache-folder ../.cache_yarn
-  artifacts:
-    paths:
-      - functions/node_modules
-
 install_client:
   stage: install
   script:
