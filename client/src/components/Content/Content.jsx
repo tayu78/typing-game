@@ -34,7 +34,7 @@ function Content() {
   );
 
   function getSymbol() {
-    fetch("http://localhost:4000/graphql", {
+    fetch("https://us-central1-yuya78-api.cloudfunctions.net/api/graphql", {
       mode: "cors",
       method: "POST",
       headers: {

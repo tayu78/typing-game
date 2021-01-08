@@ -1,22 +1,13 @@
 {
-  "hosting":[
+  "hosting": 
     {
-     "target": "app",
-     "public": "client/build",
-     "ignore": [
-       "firebase.json",
-       "**/.*",
-       "**/node_modules/**"
-     ]
-   },
-    {
-     "target": "api",
-     "public": "GraphQL",
-     "ignore": [
-       "firebase.json",
-       "**/.*",
-       "**/node_modules/**"
-     ]
-   }
-  ]
+      "public": "client/build",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    }
+  
+  
 }
