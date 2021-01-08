@@ -48,7 +48,9 @@ test_cypress:
   image: cypress/base:10
   stage: test
   script:
-    - cd ./client && yarn  runHeadless
+    - cd ./client
+    - cypress install
+    - yarn  runHeadless
   dependencies:
     - install_client
 
