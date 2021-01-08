@@ -1,4 +1,4 @@
-describe("the home page", () => {
+describe("e2e", () => {
   it("game start and  game clear", () => {
     cy.visit("/");
     cy.wait(1000);

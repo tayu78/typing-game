@@ -44,11 +44,19 @@ test_client:
   dependencies:
     - install_client
 
+test_cypress:
+  image: cypress/base:10
+  stage: test
+  script:
+    - cd ./client/cypress/ && yarn run cypress open
+  dependencies:
+    - install_client
+
 deploy_all_staging:
   stage: deploy
   script:
     - yarn global add firebase-tools --cache-folder ../.cache_yarn
-    - firebase deploy --token "$FIREBASE_DEPLOY_KEY"
+    - firebase deploy --token "$FIREBASE_TOKEN"
   dependencies:
     - install_functions
     - build_client
