@@ -18,7 +18,7 @@ var schema = buildSchema(`
     result(ElappsedTime: String, QuestionNumber: Int, IncorrectNumber: Int): Result
   }
 `);
-// const elappsedTime = 18.6;
+
 // The root provides a resolver function for each API endpoint
 var root = {
   symbol: async () => {
@@ -39,20 +39,12 @@ var root = {
     return symbol;
   },
   result: async ({ ElappsedTime, QuestionNumber, IncorrectNumber }) => {
-    // let averageKeyNumber;
-    // let correctRate;
     let data;
     await axios
       .get(
         `https://m430j3cfe8.execute-api.us-east-2.amazonaws.com/default/results?ElappsedTime=${ElappsedTime}&QuestionNumber=${QuestionNumber}&IncorrectNumber=${IncorrectNumber}`
       )
       .then((response) => {
-        // console.log(response);
-        // console.log(response.data);
-        // console.log(typeof response.data.AverageKeyNumber);
-        // console.log(typeof response.data.CorrectRate);
-        // averageKeyNumber = response.data.AverageKeyNumber;
-        // correctRate = response.data.CorrectRate;
         data = response.data;
       });
     return data;

@@ -64,3 +64,6 @@ node_modules/
 
 # dotenv environment variables file
 .env
+
+# a proprietary Mac/OSX system file that holds attributes/meta-data about the folder it resides in
+.DS_Store
