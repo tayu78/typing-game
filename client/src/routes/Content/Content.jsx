@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
-import styled from "styled-components";
-import { Symbol } from "../Symbol";
+import { Top } from "../Top";
 import { Results } from "../Results";
-import { Button } from "../../components/Button";
+import { Play } from "../Play";
 
 function Content() {
   const [isSpaceKeyDowned, setIsSpaceKeyDowned] = useState(false); //タイトル画面でスペースキーが押されたかどうか
@@ -66,33 +65,8 @@ function Content() {
         setSymbols(ary);
         console.log(data);
         console.log(typeof data.data.symbol);
-      })
-      .then();
+      });
   }, []);
-
-  // const getResult = () => {
-  //   fetch("http://localhost:4000/graphql", {
-  //     mode: "cors",
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       query: `{ result {
-  //         AverageKeyNumber
-  //         CorrectRate
-  //     } }`,
-  //     }),
-  //   })
-  //     .then((r) => r.json())
-  //     .then((data) => {
-  //       console.log(data.data.result.AverageKeyNumber);
-  //       console.log(data.data.result.CorrectRate);
-  //       setAveragaeKeyNumber(data.data.result.AverageKeyNumber);
-  //       setCorrectRate(data.data.result.CorrectRate);
-  //     });
-  // };
 
   //タイトルへ戻るボタンが押されたときの処理
   const handleClick = (e) => {
@@ -101,15 +75,14 @@ function Content() {
     setIncorrectNumber(0);
   };
 
+  //APIを叩く
   useEffect(() => {
     getSymbol();
   }, [getSymbol]);
 
+  // keypressイベントの追加
   useEffect(() => {
     document.addEventListener("keypress", handleKeyPress);
-    // if (restSymbolNumber === 0) {
-    //   setElapssedTime(Date.now() - startTime);
-    // }
     return () => {
       document.removeEventListener("keypress", handleKeyPress);
     };
@@ -119,71 +92,24 @@ function Content() {
     <>
       {isSpaceKeyDowned ? (
         restSymbolNumber ? (
-          <div>
-            <PleaseKeyDown>
-              表示された数字または記号のキーを押してください
-            </PleaseKeyDown>
-            <Symbol currentSymbol={currentSymbol} />
-            <Container>
-              <Num>問題数:{restSymbolNumber}</Num>
-              <Num>正解数:{10 - restSymbolNumber}</Num>
-              <Button onClick={handleClick} />
-            </Container>
-          </div>
+          <Play
+            currentSymbol={currentSymbol}
+            restSymbolNumber={restSymbolNumber}
+            handleClick={handleClick}
+          />
         ) : (
           <Results
             onClick={handleClick}
             incorrectNumber={incorrectNumber}
             restSymbolNumber={restSymbolNumber}
-            //
             startTime={startTime}
           />
         )
       ) : (
-        <div>
-          <Title>NS-TYPING</Title>
-          <SubTitle>数字・記号専用のタイピング練習ゲーム</SubTitle>
-          <Start>スペースキーを押すと開始します</Start>
-        </div>
+        <Top />
       )}
     </>
   );
 }
-
-// styled components
-const PleaseKeyDown = styled.p`
-  color: #fff;
-  text-align: center;
-  font-size: 18px;
-  font-family: Arial;
-`;
-const Title = styled.p`
-  font-family: impact;
-  font-weight: bold;
-  font-size: 40px;
-  text-align: center;
-  color: #fff;
-`;
-
-const SubTitle = styled.p`
-  font-family: Hiragino;
-
-  text-align: center;
-  color: #fff;
-`;
-const Start = styled.p`
-  color: #fff;
-  text-align: center;
-`;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: space-around;
-`;
-
-const Num = styled.p`
-  color: #fff;
-  display: inline-block;
-`;
 
 export default Content;

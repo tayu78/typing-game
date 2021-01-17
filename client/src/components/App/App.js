@@ -1,18 +1,27 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { AppHeader } from "../AppHeader";
 import { Board } from "../Board";
 
 function App() {
   return (
-    <Body>
-      <AppHeader />
-      <Board />
-    </Body>
+    <>
+      <GlobalStyle />
+      <Body>
+        <AppHeader />
+        <Board />
+      </Body>
+    </>
   );
 }
 
 // styled components
+
+const GlobalStyle = createGlobalStyle`
+html,body{
+  margin: 0;
+}
+`;
 const Body = styled.div`
   background: #dedede;
   height: 100vh;

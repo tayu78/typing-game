@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import { Button } from "../../components/Button";
+import { Loading } from "../Loading";
 
 function Results(props) {
   const startTime = props.startTime;
@@ -10,7 +11,6 @@ function Results(props) {
   const m = String(d.getMinutes()).padStart(2, "0");
   const s = String(d.getSeconds()).padStart(2, "0");
   const ms = String(Math.round(d.getMilliseconds() / 10)).padStart(2, 0);
-  // const [fixedElappsedTime, setFixedElappsedTime] = useState("");
   const fixedElappsedTime = (elappsedTime / 1000).toFixed(2);
   const [averageKeyNumber, setAveragaeKeyNumber] = useState("");
   const [correctRate, setCorrectRate] = useState("");
@@ -24,7 +24,6 @@ function Results(props) {
 } }`;
 
   const getFetch = useCallback(async () => {
-    // await fixElappsedTime();
     fetch("https://us-central1-yuya78-api.cloudfunctions.net/api/graphql", {
       mode: "cors",
       method: "POST",
@@ -52,7 +51,7 @@ function Results(props) {
   return (
     <>
       {loading ? (
-        <div>loading</div>
+        <Loading />
       ) : (
         <>
           <Title>結果</Title>
@@ -113,4 +112,5 @@ const Center = styled.div`
   display: inline-block;
   margin: 20px 200px 0px 200px;
 `;
+
 export default Results;
