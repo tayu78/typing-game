@@ -95,14 +95,12 @@ const ResultList = styled.li`
   color: #fff;
   font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
-  ${"" /* text-align:center; */}
 `;
 
 const Bulue = styled.span`
   color: #007acc;
   font-size: 20px;
   font-weight: bold;
-  ${"" /* font-weight: bold; */}
 `;
 const Ul = styled.ul`
   padding-left: 80px;

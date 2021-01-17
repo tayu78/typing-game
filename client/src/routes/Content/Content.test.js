@@ -46,7 +46,7 @@ describe("Content", () => {
     }
     setTimeout(() => {
       screen.getByText("結果");
-      screen.getByText("1");
+      screen.getByText("ミスタイプ数:1");
       screen.debug();
     }, 3000);
   });

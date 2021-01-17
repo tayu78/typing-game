@@ -5,25 +5,29 @@ test("render results gived by props", () => {
   let elapssedTime = 10000;
   const incorrectNumber = 2;
   const handleClick = jest.fn();
-
+  let startTime;
   render(
     <Results
       elapssedTime={elapssedTime}
       incorrectNumber={incorrectNumber}
       onClick={handleClick}
+      startTime={startTime}
     />
   );
-  screen.getByText("経過時間:");
-  screen.getByText("00:10:00");
-  screen.getByText("正しく打ったキーの数:");
-  screen.getByText("10");
-  screen.getByText(/平均キータイプ数:/);
-  screen.getByText("1.0");
-  screen.getByText(/回\/秒/);
-  screen.getByText(/正解率:/);
-  screen.getByText("83");
-  screen.getByText(/%/);
-  screen.getByText("タイトルに戻る");
+  screen.getByText("Loading...");
+  setTimeout(() => {
+    screen.getByText("経過時間:");
+    screen.getByText("00:10:00");
+    screen.getByText("正しく打ったキーの数:");
+    screen.getByText("10");
+    screen.getByText(/平均キータイプ数:/);
+    screen.getByText("1.0");
+    screen.getByText(/回\/秒/);
+    screen.getByText(/正解率:/);
+    screen.getByText("83");
+    screen.getByText(/%/);
+    screen.getByText("タイトルに戻る");
+  }, 5000);
 
   // screen.debug();
 });
