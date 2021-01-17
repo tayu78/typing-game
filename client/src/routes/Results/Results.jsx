@@ -41,7 +41,8 @@ function Results(props) {
         setAveragaeKeyNumber(data.data.result.AverageKeyNumber);
         setCorrectRate(data.data.result.CorrectRate);
         setLoading(false);
-      });
+      })
+      .catch(() => console.log("error"));
   }, [query, fixedElappsedTime, incorrectNumber]);
 
   useEffect(() => {
