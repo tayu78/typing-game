@@ -38,7 +38,6 @@ function Results(props) {
     })
       .then((r) => r.json())
       .then((data) => {
-        console.log(fixedElappsedTime);
         setAveragaeKeyNumber(data.data.result.AverageKeyNumber);
         setCorrectRate(data.data.result.CorrectRate);
         setLoading(false);
