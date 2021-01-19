@@ -46,7 +46,9 @@ function Results(props) {
   }, [query, fixedElappsedTime, incorrectNumber]);
 
   useEffect(() => {
-    getFetch();
+    if (setLoading) {
+      getFetch();
+    }
   }, [getFetch]);
 
   return (

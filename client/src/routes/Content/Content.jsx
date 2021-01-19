@@ -73,6 +73,7 @@ function Content() {
     setIsSpaceKeyDowned(false);
     setRestSymbolNumber(10);
     setIncorrectNumber(0);
+    getSymbol();
   };
 
   //APIを叩く
