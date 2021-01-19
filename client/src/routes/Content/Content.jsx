@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
 import { Top } from "../Top";
 import { Results } from "../Results";
 import { Play } from "../Play";
@@ -10,21 +11,32 @@ function Content() {
   const [currentSymbol, setCurrentSymbol] = useState(""); //表示する記号
   const [incorrectNumber, setIncorrectNumber] = useState(0); //間違えてタイピングした数
   const [startTime, setStartTime] = useState(0); //開始時間
+  const [countdown, setCountdown] = useState(3);
 
   const handleKeyPress = useCallback(
-    async (e) => {
+    (e) => {
       let KeyName = e.key;
       if (KeyName === " ") {
         //タイトル画面でスペースキーが押されたかどうかを判定し、押されたらゲームスタート
         if (restSymbolNumber !== 0) {
           e.preventDefault();
           setIsSpaceKeyDowned(true);
-          setStartTime(Date.now());
+          setTimeout(() => {
+            setCountdown(2);
+          }, 1000);
+          setTimeout(() => {
+            setCountdown(1);
+          }, 2000);
+          setTimeout(() => {
+            setCountdown(false);
+            setStartTime(Date.now());
+          }, 3000);
         }
         e.preventDefault();
       } else if (KeyName === currentSymbol) {
         //ユーザーが正しい記号を入力したら残りの問題数の更新、次に表示する記号の更新、記号リストを表示された記号は削除して更新
         setRestSymbolNumber(restSymbolNumber - 1);
+        console.log(symbols);
         setCurrentSymbol(
           symbols.splice(Math.floor(Math.random() * symbols.length), 1)[0]
         );
@@ -65,15 +77,17 @@ function Content() {
         setSymbols(ary);
         console.log(data);
         console.log(typeof data.data.symbol);
-      });
+      })
+      .catch(() => console.log("error"));
   }, []);
 
   //タイトルへ戻るボタンが押されたときの処理
   const handleClick = (e) => {
+    getSymbol();
     setIsSpaceKeyDowned(false);
     setRestSymbolNumber(10);
     setIncorrectNumber(0);
-    getSymbol();
+    setCountdown(3);
   };
 
   //APIを叩く
@@ -93,11 +107,15 @@ function Content() {
     <>
       {isSpaceKeyDowned ? (
         restSymbolNumber ? (
-          <Play
-            currentSymbol={currentSymbol}
-            restSymbolNumber={restSymbolNumber}
-            handleClick={handleClick}
-          />
+          countdown ? (
+            <CountDown>{countdown}</CountDown>
+          ) : (
+            <Play
+              currentSymbol={currentSymbol}
+              restSymbolNumber={restSymbolNumber}
+              handleClick={handleClick}
+            />
+          )
         ) : (
           <Results
             onClick={handleClick}
@@ -112,5 +130,13 @@ function Content() {
     </>
   );
 }
+
+//styled components
+const CountDown = styled.div`
+  font-size: 100px;
+  color: white;
+  text-align: center;
+  margin-top: 100px;
+`;
 
 export default Content;

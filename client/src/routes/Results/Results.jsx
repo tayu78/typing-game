@@ -23,7 +23,7 @@ function Results(props) {
     CorrectRate
 } }`;
 
-  const getFetch = useCallback(async () => {
+  const getFetch = useCallback(() => {
     fetch("https://us-central1-yuya78-api.cloudfunctions.net/api/graphql", {
       mode: "cors",
       method: "POST",
