@@ -38,6 +38,7 @@ function Results(props) {
     })
       .then((r) => r.json())
       .then((data) => {
+        console.log(fixedElappsedTime);
         setAveragaeKeyNumber(data.data.result.AverageKeyNumber);
         setCorrectRate(data.data.result.CorrectRate);
         setLoading(false);
@@ -46,10 +47,9 @@ function Results(props) {
   }, [query, fixedElappsedTime, incorrectNumber]);
 
   useEffect(() => {
-    if (setLoading) {
-      getFetch();
-    }
-  }, [getFetch]);
+    getFetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
