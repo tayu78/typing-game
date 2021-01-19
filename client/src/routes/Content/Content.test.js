@@ -35,15 +35,18 @@ describe("Content", () => {
   test("restSymbolNumber = 0 and then display results, user press wrong key and then incorrecutNumber change", () => {
     render(<Content />);
     fireEvent.keyPress(document, { key: " " }); //game start
-    fireEvent.keyPress(document, { key: "a" }); // press wrong key
     setInterval(console.log("start"), 3000);
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 9; i++) {
       setTimeout(() => {
         fireEvent.keyPress(document, {
           key: screen.getByTestId("symbol").textContent,
         });
       }, 3000);
     }
+    fireEvent.keyPress(document, { key: "a" }); // press wrong key
+    fireEvent.keyPress(document, {
+      key: screen.getByTestId("symbol").textContent,
+    });
     setTimeout(() => {
       screen.getByText("結果");
       screen.getByText("ミスタイプ数:1");
