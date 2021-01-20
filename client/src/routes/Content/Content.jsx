@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+
 import { Top } from "../Top";
 import { Results } from "../Results";
 import { Play } from "../Play";
@@ -11,8 +11,7 @@ function Content() {
   const [currentSymbol, setCurrentSymbol] = useState(""); //表示する記号
   const [incorrectNumber, setIncorrectNumber] = useState(0); //間違えてタイピングした数
   const [startTime, setStartTime] = useState(0); //開始時間
-  const [countdown, setCountdown] = useState(3);
-
+  let Ary = useRef();
   const handleKeyPress = useCallback(
     (e) => {
       let KeyName = e.key;
@@ -21,25 +20,17 @@ function Content() {
         if (restSymbolNumber !== 0) {
           e.preventDefault();
           setIsSpaceKeyDowned(true);
-          setTimeout(() => {
-            setCountdown(2);
-          }, 1000);
-          setTimeout(() => {
-            setCountdown(1);
-          }, 2000);
-          setTimeout(() => {
-            setCountdown(false);
-            setStartTime(Date.now());
-          }, 3000);
+          setStartTime(Date.now());
         }
-        e.preventDefault();
       } else if (KeyName === currentSymbol) {
         //ユーザーが正しい記号を入力したら残りの問題数の更新、次に表示する記号の更新、記号リストを表示された記号は削除して更新
         setRestSymbolNumber(restSymbolNumber - 1);
-        console.log(symbols);
-        setCurrentSymbol(
-          symbols.splice(Math.floor(Math.random() * symbols.length), 1)[0]
-        );
+        let next;
+        next = symbols[Math.floor(Math.random() * symbols.length)];
+        while (currentSymbol === next) {
+          next = symbols[Math.floor(Math.random() * symbols.length)];
+        }
+        setCurrentSymbol(next);
         setSymbols(symbols);
       } else if (restSymbolNumber === 0) {
         //結果画面でキー入力をさせないようにする
@@ -71,6 +62,7 @@ function Content() {
       .then((r) => r.json())
       .then((data) => {
         let ary = data.data.symbol.split(" ");
+        Ary.current = data.data.symbol.split(" ");
         setCurrentSymbol(
           ary.splice(Math.floor(Math.random() * ary.length), 1)[0]
         );
@@ -82,12 +74,12 @@ function Content() {
   }, []);
 
   //タイトルへ戻るボタンが押されたときの処理
-  const handleClick = (e) => {
-    getSymbol();
+  const handleClick = async (e) => {
+    setSymbols(Ary.current);
+    setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
     setIsSpaceKeyDowned(false);
     setRestSymbolNumber(10);
     setIncorrectNumber(0);
-    setCountdown(3);
   };
 
   //APIを叩く
@@ -107,15 +99,11 @@ function Content() {
     <>
       {isSpaceKeyDowned ? (
         restSymbolNumber ? (
-          countdown ? (
-            <CountDown>{countdown}</CountDown>
-          ) : (
-            <Play
-              currentSymbol={currentSymbol}
-              restSymbolNumber={restSymbolNumber}
-              handleClick={handleClick}
-            />
-          )
+          <Play
+            currentSymbol={currentSymbol}
+            restSymbolNumber={restSymbolNumber}
+            handleClick={handleClick}
+          />
         ) : (
           <Results
             onClick={handleClick}
@@ -125,18 +113,10 @@ function Content() {
           />
         )
       ) : (
-        <Top />
+        <Top getSymbol={getSymbol} />
       )}
     </>
   );
 }
-
-//styled components
-const CountDown = styled.div`
-  font-size: 100px;
-  color: white;
-  text-align: center;
-  margin-top: 100px;
-`;
 
 export default Content;
