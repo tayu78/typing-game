@@ -113,7 +113,7 @@ function Content() {
           />
         )
       ) : (
-        <Top getSymbol={getSymbol} />
+        <Top />
       )}
     </>
   );
