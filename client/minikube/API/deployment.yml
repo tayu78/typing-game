@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: go-api
+  name: go-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: go-api
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: go-api
+    spec:
+      containers:
+        - image: docker.io/tayu78/go-minikube
+          name: go-api
+          imagePullPolicy: Always
+          resources: {}
+          ports:
+            - containerPort: 4000
+status: {}
