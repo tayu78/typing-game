@@ -18,7 +18,7 @@ spec:
         app: myapp
     spec:
       containers:
-        - image: docker.io/tayu78/typing-minikube
+        - image: docker.io/tayu78/typing-app-2
           name: myapp
           imagePullPolicy: Always
           resources: {}

@@ -18,7 +18,7 @@ spec:
         app: apigateway
     spec:
       containers:
-        - image: docker.io/tayu78/graphql-api
+        - image: docker.io/tayu78/my-typing-apigateway-2
           name: apigateway
           imagePullPolicy: Always
           resources: {}

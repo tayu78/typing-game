@@ -75,6 +75,6 @@ func main(){
 
 	initRouting(e)
 
-	e.Logger.Fatal(e.Start(":4000"))
+	e.Logger.Fatal(e.Start(":8000"))
 }
-//http://127.0.0.1:4000/result?ElappsedTime=18.36&QuestionNumber=10&IncorrectNumber=5
+//http://127.0.0.1:8000/result?ElappsedTime=18.36&QuestionNumber=10&IncorrectNumber=5

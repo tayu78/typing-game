@@ -50,7 +50,7 @@ function Content() {
   );
 
   const getSymbol = useCallback(() => {
-    fetch("https://us-central1-yuya78-api.cloudfunctions.net/api/graphql", {
+    fetch("http://go-api-gateway.com/graphql", {
       mode: "cors",
       method: "POST",
       headers: {

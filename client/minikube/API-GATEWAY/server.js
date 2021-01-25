@@ -20,11 +20,9 @@ var root = {
   symbol: async () => {
     let symbol;
     await axios
-      .get(
-        "https://sdd7o4ga3g.execute-api.us-east-2.amazonaws.com/default/symbols"
-      )
+      .get("http://go-api.com/symbol")
       .then((response) => {
-        symbol = response.data;
+        symbol = response.data.symbols;
         console.log(response);
         console.log(response.data);
         console.log(typeof response.data);
@@ -38,7 +36,7 @@ var root = {
     let data;
     await axios
       .get(
-        `https://m430j3cfe8.execute-api.us-east-2.amazonaws.com/default/results?ElappsedTime=${ElappsedTime}&QuestionNumber=${QuestionNumber}&IncorrectNumber=${IncorrectNumber}`
+        `http://go-api.com/result?ElappsedTime=${ElappsedTime}&QuestionNumber=${QuestionNumber}&IncorrectNumber=${IncorrectNumber}`
       )
       .then((response) => {
         data = response.data;

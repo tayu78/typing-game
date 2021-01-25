@@ -7,5 +7,5 @@ spec:
   selector:
     app: go-api
   ports:
-    - port: 4000
+    - port: 8000
       protocol: TCP

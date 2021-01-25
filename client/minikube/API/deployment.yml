@@ -18,10 +18,10 @@ spec:
         app: go-api
     spec:
       containers:
-        - image: docker.io/tayu78/go-minikube
+        - image: docker.io/tayu78/typing-api
           name: go-api
           imagePullPolicy: Always
           resources: {}
           ports:
-            - containerPort: 4000
+            - containerPort: 8000
 status: {}
